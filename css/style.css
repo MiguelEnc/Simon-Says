@@ -1,0 +1,107 @@
+
+.container {
+  display: flex;
+  justify-content: center;
+  font-family: fantasy;
+  align-items: center;
+  position: fixed;
+  color: white;
+  height: 100%;
+  width: 100%;
+}
+
+.groups {
+  width: 43em;
+  height: 43em;
+}
+
+.pad {
+  height: 20em;
+  width: 20em;
+}
+
+.center-pad {
+  background-color: #333;
+  border: 10px solid #333;
+  border-radius: 100%;
+  position: relative;
+  text-align: center;
+  height: 20em;
+  width: 20em;
+  left: 11em;
+  top: 11em;
+}
+
+.center-pad h2 {
+  font-size: 5em;
+  margin: 40px 0px 0px 50px;
+  position: fixed;
+}
+
+#stage {
+  font-size: 3em;
+  position: relative;
+  top: -11em;
+}
+
+.btn {
+  border-radius: 100%;
+  height: 30px;
+  width: 30px;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.configs {
+  position: relative;
+  top: -34em;
+}
+
+.config {
+  width: 50%;
+  float: left;
+}
+
+.config h4 {
+  font-weight: 100;
+  font-size: 1.4em;
+  margin: 5px;
+}
+
+.green {
+  border-top-left-radius: 100%;
+  background-color: #3BA354;
+  border-top: 1em solid #333;
+  border-left: 1em solid #333;
+  border-right: 0.5em solid #333;
+  border-bottom: 0.5em solid #333;
+}
+
+.red {
+  border-top-right-radius: 100%;
+  background-color: #DE4659;
+  border-top: 1em solid #333;
+  border-left: 0.5em solid #333;
+  border-right: 1em solid #333;
+  border-bottom: 0.5em solid #333;
+}
+
+.yellow {
+  border-bottom-left-radius: 100%;
+  background-color: #F4B05E;
+  border-top: 0.5em solid #333;
+  border-left: 1em solid #333;
+  border-right: 0.5em solid #333;
+  border-bottom: 1em solid #333;
+}
+
+.blue {
+  border-bottom-right-radius: 100%;
+  background-color: #00ABEA;
+  border-top: 0.5em solid #333;
+  border-left: 0.5em solid #333;
+  border-right: 1em solid #333;
+  border-bottom: 1em solid #333;
+}
