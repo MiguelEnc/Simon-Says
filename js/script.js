@@ -8,6 +8,7 @@ var
   // Config
   strict    = document.getElementById("strict"),
   start     = document.getElementById("start"),
+  stage     = document.getElementById("stage"),
   
   // Game logic
   strictFlag= false,
@@ -123,7 +124,6 @@ function generateRandomSequence() {
   // random number between 0 and 3
   var rnd = Math.floor(Math.random() * 4);
   sequence.push(rnd);
-  console.log(sequence);
   reproduceSequence(sequence);
 }
 
@@ -136,9 +136,7 @@ function reproduceSequence(arr) {
   var intervalId = setInterval(function(){
 
     if(len < arr.length){
-      console.log("Arr Length: " + arr.length +" Len:" + len);
       var val = arr[len];
-      console.log("Val: " + val);
       switch (val) {
         case 0:
           mouseDown(greenPad);
@@ -169,10 +167,16 @@ function reproduceSequence(arr) {
         break;    
       }
       len = len + 1;
+      updateCount();
     } else {
       clearInterval(intervalId);
     }
 
   }, 500);
 
+}
+
+function updateCount(){
+  var sl = sequence.length;
+  stage.innerHTML = sl < 10 ? '0'+sl : sl;
 }
