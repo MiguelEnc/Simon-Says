@@ -70,7 +70,11 @@
   margin: 5px;
 }
 
-.green {
+#strict {
+  background-color: #333;
+}
+
+#green {
   border-top-left-radius: 100%;
   background-color: #3BA354;
   border-top: 1em solid #333;
@@ -79,7 +83,7 @@
   border-bottom: 0.5em solid #333;
 }
 
-.red {
+#red {
   border-top-right-radius: 100%;
   background-color: #DE4659;
   border-top: 1em solid #333;
@@ -88,7 +92,7 @@
   border-bottom: 0.5em solid #333;
 }
 
-.yellow {
+#yellow {
   border-bottom-left-radius: 100%;
   background-color: #F4B05E;
   border-top: 0.5em solid #333;
@@ -97,7 +101,7 @@
   border-bottom: 1em solid #333;
 }
 
-.blue {
+#blue {
   border-bottom-right-radius: 100%;
   background-color: #00ABEA;
   border-top: 0.5em solid #333;
