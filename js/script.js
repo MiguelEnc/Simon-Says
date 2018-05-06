@@ -109,9 +109,70 @@ document.getElementById("restart").onclick = function() {
   if(start.innerText === "Start"){ // Game start
     start.innerText = "Restart";
 
-  } else { // Geme restart
-    sequence = [];
+  // } else { // Geme restart
+    // sequence = [];
   }
 
+  generateRandomSequence();
 }
 
+/**
+ * Adds a random number to the sequence
+ */
+function generateRandomSequence() {
+  // random number between 0 and 3
+  var rnd = Math.floor(Math.random() * 4);
+  sequence.push(rnd);
+  console.log(sequence);
+  reproduceSequence(sequence);
+}
+
+/**
+ * Displays the given sequence activation
+ * @param {Array} arr Array of current sequence
+ */
+function reproduceSequence(arr) {
+  var len = 0;
+  var intervalId = setInterval(function(){
+
+    if(len < arr.length){
+      console.log("Arr Length: " + arr.length +" Len:" + len);
+      var val = arr[len];
+      console.log("Val: " + val);
+      switch (val) {
+        case 0:
+          mouseDown(greenPad);
+          setTimeout(function(){
+            mouseUp(greenPad);
+          }, 500);
+        break;
+    
+        case 1:
+          mouseDown(redPad);
+          setTimeout(function(){
+            mouseUp(redPad);
+          }, 500);
+        break;
+    
+        case 2:
+          mouseDown(yellowPad);
+          setTimeout(function(){
+            mouseUp(yellowPad);
+          }, 500);
+        break;
+    
+        case 3:
+          mouseDown(bluePad);
+          setTimeout(function(){
+            mouseUp(bluePad);
+          }, 500);
+        break;    
+      }
+      len = len + 1;
+    } else {
+      clearInterval(intervalId);
+    }
+
+  }, 500);
+
+}
