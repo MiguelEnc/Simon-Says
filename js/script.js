@@ -11,8 +11,10 @@ var
   stage     = document.getElementById("stage"),
   
   // Game logic
-  strictFlag= false,
-  sequence  = [],
+  strictFlag        = false,
+  gameSequence      = [],
+  userInputIndex    = 0,
+  spectingUserInput = false,
   
   // Pads configuration values:
   // colors of each state and audio
@@ -39,47 +41,57 @@ var
     }
   };
 
-yellowPad.onmousedown = function(){
-  mouseDown(this);
-}
-
-yellowPad.onmouseup = function(){
-  mouseUp(this);
-}
-
 greenPad.onmousedown = function(){
-  mouseDown(this);
+  if(spectingUserInput)
+    mouseDown(this, 0);
+}
+
+redPad.onmousedown = function(){
+  if(spectingUserInput)
+    mouseDown(this, 1);
+}
+
+yellowPad.onmousedown = function(){
+  if(spectingUserInput)
+    mouseDown(this, 2);
+}
+
+bluePad.onmousedown = function(){
+  if(spectingUserInput)
+    mouseDown(this, 3);
 }
 
 greenPad.onmouseup = function(){
   mouseUp(this);
 }
 
-bluePad.onmousedown = function(){
-  mouseDown(this);
+redPad.onmouseup = function(){
+  mouseUp(this);
+}
+
+yellowPad.onmouseup = function(){
+  mouseUp(this);
 }
 
 bluePad.onmouseup = function(){
   mouseUp(this);
 }
 
-redPad.onmousedown = function(){
-  mouseDown(this)
-}
-
-redPad.onmouseup = function(){
-  mouseUp(this);
-}
 
 /**
  * Applies the mouse down effect to the given element
  * Changes background color and plays sound
  * @param {Object} element pad document object to modify
+ * @param {Number} index pad index
  */
-function mouseDown(element) {
+function mouseDown(element, index) {
   var pad = element.getAttribute("id");
   element.style.backgroundColor = padVal[pad].clicked;
   padVal[pad].audio.play();
+
+  if(spectingUserInput && index != null) {
+    checkUserSequence(index);
+  }
 }
 
 /**
@@ -111,56 +123,57 @@ document.getElementById("restart").onclick = function() {
     start.innerText = "Restart";
 
   // } else { // Geme restart
-    // sequence = [];
+    // gameSequence = [];
   }
 
-  generateRandomSequence();
+  generateRandomGameSequence();
 }
 
 /**
- * Adds a random number to the sequence
+ * Adds a random number to the gameSequence
  */
-function generateRandomSequence() {
+function generateRandomGameSequence() {
   // random number between 0 and 3
   var rnd = Math.floor(Math.random() * 4);
-  sequence.push(rnd);
-  reproduceSequence(sequence);
+  gameSequence.push(rnd);
+  reproduceGameSequence(gameSequence);
 }
 
 /**
- * Displays the given sequence activation
- * @param {Array} arr Array of current sequence
+ * Displays the given gameSequence activation
+ * @param {Array} arr Array of current gameSequence
  */
-function reproduceSequence(arr) {
+function reproduceGameSequence(arr) {
   var len = 0;
+  spectingUserInput = false;
   var intervalId = setInterval(function(){
 
     if(len < arr.length){
       var val = arr[len];
       switch (val) {
         case 0:
-          mouseDown(greenPad);
+          mouseDown(greenPad, null);
           setTimeout(function(){
             mouseUp(greenPad);
           }, 500);
         break;
     
         case 1:
-          mouseDown(redPad);
+          mouseDown(redPad, null);
           setTimeout(function(){
             mouseUp(redPad);
           }, 500);
         break;
     
         case 2:
-          mouseDown(yellowPad);
+          mouseDown(yellowPad, null);
           setTimeout(function(){
             mouseUp(yellowPad);
           }, 500);
         break;
     
         case 3:
-          mouseDown(bluePad);
+          mouseDown(bluePad, null);
           setTimeout(function(){
             mouseUp(bluePad);
           }, 500);
@@ -170,13 +183,31 @@ function reproduceSequence(arr) {
       updateCount();
     } else {
       clearInterval(intervalId);
+      spectingUserInput = true;
     }
 
-  }, 500);
+  }, 700);
+
+}
+
+function checkUserSequence(pad){
+
+  if(gameSequence[userInputIndex] === pad){
+    userInputIndex++;
+  } else {
+    console.log("Error, the touched pad was not in the sequence");
+    spectingUserInput = false;
+  }
+
+  if(userInputIndex == gameSequence.length){
+    spectingUserInput = false;
+    userInputIndex = 0;
+    generateRandomGameSequence()
+  }
 
 }
 
 function updateCount(){
-  var sl = sequence.length;
+  var sl = gameSequence.length;
   stage.innerHTML = sl < 10 ? '0'+sl : sl;
 }

@@ -29,8 +29,8 @@
   text-align: center;
   height: 20em;
   width: 20em;
-  top: 10.5em;
-  left: 10.5em;
+  top: 11em;
+  left: 11em;
 }
 
 .center-pad h2 {
@@ -42,7 +42,7 @@
 #stage {
   font-size: 3em;
   position: relative;
-  top: -11em;
+  top: 3em;
 }
 
 .btn {
