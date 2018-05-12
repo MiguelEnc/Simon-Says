@@ -38,7 +38,8 @@ var
       normal: '#DE4659',
       clicked: '#ff0000',
       audio: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3')
-    }
+    },
+    errorAudio: new Audio('http://www.freesfx.co.uk/rx2/mp3s/9/11110_1393961399.mp3')
   };
 
 greenPad.onmousedown = function(){
@@ -122,8 +123,8 @@ document.getElementById("restart").onclick = function() {
   if(start.innerText === "Start"){ // Game start
     start.innerText = "Restart";
 
-  // } else { // Geme restart
-    // gameSequence = [];
+  } else { // Geme restart
+    gameSequence = [];
   }
 
   generateRandomGameSequence();
@@ -195,8 +196,19 @@ function checkUserSequence(pad){
   if(gameSequence[userInputIndex] === pad){
     userInputIndex++;
   } else {
-    console.log("Error, the touched pad was not in the sequence");
+
+    padVal.errorAudio.play();
     spectingUserInput = false;
+
+    if(strictFlag) {
+      gameSequence = [];
+      userInputIndex = 0;
+        generateRandomGameSequence();
+    } else {      
+      setTimeout(function(){
+        reproduceGameSequence(gameSequence);
+      }, 600);
+    }
   }
 
   if(userInputIndex == gameSequence.length){
